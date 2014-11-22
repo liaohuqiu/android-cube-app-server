@@ -75,7 +75,14 @@ class MApis_ImageList extends MApps_AppBase_BaseApiApp
             "http://img5.duitang.com/uploads/item/201406/25/20140625132851_mPmKY.thumb.jpeg",
             "http://img5.duitang.com/uploads/item/201406/25/20140625133312_ZtmW4.thumb.jpeg",
             "http://img5.duitang.com/uploads/item/201406/25/20140625164858_AuafS.thumb.jpeg",);
+
+
+        $start = $this->getRequest()->getData('s', 'r', 'int');
+        $num = $this->getRequest()->getData('n', 'r', 'int', 10);
+
         $list = array();
+        $has_more = count($pic_list) > $start + $num;
+        $pic_list = array_slice($pic_list, $start, $num);
         foreach ($pic_list as $pic)
         {
             $info = array();
@@ -87,6 +94,7 @@ class MApis_ImageList extends MApps_AppBase_BaseApiApp
         $now = date('Y-m-d H:i:s T');
         $data['time'] = $now;
         $data['list'] = $list;
+        $data['has_more'] = $has_more;
 
         $this->setData($data);
     }
