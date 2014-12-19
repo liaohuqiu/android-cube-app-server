@@ -9,6 +9,11 @@ class MApis_ApiList extends MApps_AppBase_BaseApiApp
                 'params' => array(
                 ),
             ),
+            'api/image-list' => array(
+                'des' => '',
+                'params' => array(
+                ),
+            ),
         );
 
         $host = $_SERVER['HTTP_HOST'];
