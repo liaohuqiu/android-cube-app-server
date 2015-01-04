@@ -29,6 +29,11 @@ class MApps_Index extends MApps_AppBase_BasePageApp
                     'num' => array('des' => '所取条数', 'demo_vaule' => '20'),
                 ),
             ),
+            'api/get-image' => array(
+                'des' => 'fetch an image',
+                'params' => array(
+                ),
+            ),
         );
 
         $host = $_SERVER['HTTP_HOST'];
