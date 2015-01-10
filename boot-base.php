@@ -5,14 +5,15 @@ $boot_dir = dirname(__FILE__);
 
 // set up for cube
 define('ROOT_DIR', $boot_dir); // change to you app name
-define('APP_NAME', 'cube-demo'); // change to you app name
+define('APP_NAME', 'android-cube-app'); // change to you app name
 define('CUBE_ROOT_DIR', $boot_dir . '/cube-core');
 define('CONFIG_DATA_DIR', $boot_dir . '/config');
 define('WRITABLE_DIR', $boot_dir . '/writable');
 
 // config for different enviroment
 // You should implement this according your situation
-if (gethostname() == '101.cube')
+$hostname = gethostname();
+if ($hostname == '101.cube' || $hostname == '101.cube56')
 {
     define('ENV_TAG', 'dev');
 }

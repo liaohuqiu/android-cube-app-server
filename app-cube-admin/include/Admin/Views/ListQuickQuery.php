@@ -1,27 +1,40 @@
 <?php
-/**
- * Name - Value list
- */
 class MAdmin_Views_ListQuickQuery
 {
     private $itemList =  array(
         // 'cate' => array(
         //     'des' => 'Category',
-        //     'type' => 'select',
-        //     'defaultValue' => 0,
-        //     'options' => $topCatOptions,
+        //     'default_value' => 0,
+        //     'value_name_map' => ,
+        //     'name_value_map' => ,
         );
 
     public function __construct($itemList)
     {
-        $this->itemList = $itemList;
+        if (is_array($itemList))
+        {
+            $this->itemList = $itemList;
+        }
     }
 
     public function addSearchInfo($searchInfo)
     {
     }
 
-    public function getQueryList($pageInputData)
+    public function getDefaultValues()
+    {
+        $list = array();
+        foreach ($this->itemList as $key => $item)
+        {
+            if (isset($item['default_value']))
+            {
+                $list[$key] = $item['default_value'];
+            }
+        }
+        return $list;
+    }
+
+    public function getSelectList($input)
     {
         $itemList = $this->itemList;
         if (empty($itemList) || !is_array($itemList))
@@ -29,28 +42,32 @@ class MAdmin_Views_ListQuickQuery
             return false;
         }
         $list = array();
-        foreach ($itemList as $fieldKey => $info)
+        foreach ($itemList as $key => $item)
         {
-            $info['field'] = $fieldKey;
-
-            $currentValue = $info['defaultValue'];
-            if (isset($pageInputData[$fieldKey]))
+            $value = $item['default_value'];
+            if (isset($input[$key]))
             {
-                $currentValue = $pageInputData[$fieldKey];
-                $info['value'] = $currentValue;
+                $value = $input[$key];
             }
 
-            $type = $info['type'];
-            if ($type == 'select')
+            $options = $item['name_value_map'];
+            if (!$options)
             {
-                $options = $info['options'];
-                if (!$options)
+                $options = $item['value_name_map'];
+                if ($options)
                 {
-                    throw new Exception('the field named $fieldKey is a select field and the options is empty');
+                    $options = array_flip($options);
                 }
-                $info['options'] = MCore_Str_Html::options($options, $currentValue);
             }
-            $list[] = $info;
+            if (!$options)
+            {
+                throw new Exception('the field named $key is a select field and the options is empty');
+            }
+
+            $info = array();
+            $info['des'] = $item['des'];
+            $info['options'] = MCore_Str_Html::options($options, $value);
+            $list[$key] = $info;
         }
         return $list;
     }

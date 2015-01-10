@@ -12,7 +12,7 @@ $path_map = array(
 );
 
 $pre_path_map = array(
-    '/img' => '/common/image.php',
+    '/test-image' => '/test-image',
 );
 MCore_Web_Router::addPathMapList($path_map);
 MCore_Web_Router::addPrePathMap($pre_path_map);
