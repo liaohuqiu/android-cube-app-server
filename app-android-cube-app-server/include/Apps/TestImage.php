@@ -49,7 +49,7 @@ class MApps_TestImage extends MApps_AppBase_BasePageApp
         imagefilledrectangle($im, 0, 0, $width, $height, $background);
 
         // Add the text
-        $box = imagettftext($im, $text_size, 0, 0, $text_height, $black, $font, $text);
+        $box = imagettftext($im, $text_size, 0, 10, $text_height + 10, $black, $font, $text);
 
         // Using imagepng() results in clearer text compared with imagejpeg()
         header('Content-Type: image/png');
