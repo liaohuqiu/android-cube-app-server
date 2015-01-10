@@ -6,18 +6,29 @@ class MApps_TestImage extends MApps_AppBase_BasePageApp
         $origin_url = $this->getRequest()->getInfo()['origin_url'];
         $path_list = explode('/', $origin_url);
 
-        list($name_str, $ext) = explode('.', $path_list[count($path_list) - 1]);
-        list($text, $name_str) = explode('-', $name_str);
-        $wh = explode('x', $name_str);
-        $text_size = 30;
+        $sg_list = explode('.', $path_list[count($path_list) - 1]);
+        $sg_count = count($sg_list);
+        if ($sg_count == 4)
+        {
+            list($size) = explode('_', $sg_list[2]);
+        }
+        else
+        {
+            $size = 110;
+        }
+        if ($sg_count < 3)
+        {
+            header('Status: 404 Not Found');
+            echo '<h1>:( 404 Not Found</h1>';
+            exit;
+        }
 
-        $size = max($wh[0], $wh[1]);
+        $text_size = 30;
+        $text = $sg_list[0];
         $width = $size;
         $height = $size;
 
         $font = ROOT_DIR . "/data/droid_mono.ttf";
-        // Set the content-type
-        header('Content-Type: image/png');
 
         // Create the image
         $im = imagecreatetruecolor($width, $height);
@@ -33,13 +44,14 @@ class MApps_TestImage extends MApps_AppBase_BasePageApp
         $y = ($height - $text_height) / 2;
 
         // Create some colors
-        $back_ground = imagecolorallocate($im, 255, 100, 255);
-        imagefilledrectangle($im, 0, 0, $width, $height, $back_ground);
+        $background = imagecolorallocate($im, 255, 100, 255);
+        imagefilledrectangle($im, 0, 0, $width, $height, $background);
 
         // Add the text
         $box = imagettftext($im, $text_size, 0, 0, $text_height, $black, $font, $text);
 
         // Using imagepng() results in clearer text compared with imagejpeg()
+        header('Content-Type: image/png');
         imagepng($im);
         imagedestroy($im);
         exit;
