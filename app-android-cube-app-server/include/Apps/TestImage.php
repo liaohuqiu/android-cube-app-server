@@ -8,19 +8,20 @@ class MApps_TestImage extends MApps_AppBase_BasePageApp
 
         $sg_list = explode('.', $path_list[count($path_list) - 1]);
         $sg_count = count($sg_list);
-        if ($sg_count == 4)
-        {
-            list($size) = explode('_', $sg_list[2]);
-        }
-        else
-        {
-            $size = 110;
-        }
         if ($sg_count < 3)
         {
             header('Status: 404 Not Found');
             echo '<h1>:( 404 Not Found</h1>';
             exit;
+        }
+        if ($sg_count == 3)
+        {
+            $size = 110;
+        }
+        else
+        {
+            $xy = explode('_', $sg_list[2]);
+            $size = max($xy[0], $xy[1]);
         }
 
         $text_size = 30;
