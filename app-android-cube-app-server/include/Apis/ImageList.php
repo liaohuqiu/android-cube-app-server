@@ -82,6 +82,7 @@ class MApis_ImageList extends MApps_AppBase_BaseApiApp
 
         $list = array();
         $has_more = count($pic_list) > $start + $num;
+        $has_more = 20 > $start + $num;
         $pic_list = array_slice($pic_list, $start, $num);
         foreach ($pic_list as $pic)
         {
