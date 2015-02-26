@@ -34,6 +34,11 @@ class MApps_Index extends MApps_AppBase_BasePageApp
                 'params' => array(
                 ),
             ),
+            'api/slider-banner' => array(
+                'des' => 'fetch an image',
+                'params' => array(
+                ),
+            ),
         );
 
         $host = $_SERVER['HTTP_HOST'];
