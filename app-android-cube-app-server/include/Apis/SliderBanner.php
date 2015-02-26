@@ -18,6 +18,17 @@ class MApis_SliderBanner extends MApps_AppBase_BaseApiApp
             'http://img5.duitang.com/uploads/item/201406/25/20140625164858_AuafS.thumb.jpeg',
         );
 
-        $this->setData($pic_list);
+        $list = array();
+        $i = 0;
+        foreach ($pic_list as $pic)
+        {
+            $i ++;
+            $info = [];
+            $info['pic'] = $pic;
+            $info['title'] = 'title: ' . $i;
+            $list[] = $info;
+        }
+
+        $this->setData($list);
     }
 }
