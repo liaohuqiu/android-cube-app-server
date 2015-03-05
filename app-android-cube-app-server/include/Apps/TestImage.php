@@ -32,6 +32,7 @@ class MApps_TestImage extends MApps_AppBase_BasePageApp
         $font = ROOT_DIR . "/data/droid_mono.ttf";
 
         // Create the image
+        $width -= 10;
         $im = imagecreatetruecolor($width, $height);
 
         // Get Bounding Box Size
