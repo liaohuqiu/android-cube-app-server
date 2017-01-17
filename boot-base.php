@@ -12,8 +12,9 @@ define('WRITABLE_DIR', $boot_dir . '/writable');
 
 // config for different enviroment
 // You should implement this according your situation
-$hostname = gethostname();
-if ($hostname == '101.cube' || $hostname == '101.cube56')
+
+$is_dev = strpos($_SERVER['HTTP_HOST'], 'test.srain.in') !== false;
+if ($is_dev)
 {
     define('ENV_TAG', 'dev');
 }
